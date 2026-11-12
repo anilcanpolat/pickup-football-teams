@@ -1,0 +1,19 @@
+services:
+  football-api:
+    image: python:3.12-alpine
+    container_name: football-api
+    restart: unless-stopped
+    user: "1000:1000"
+    read_only: true
+    command: ["python", "-u", "/app/server.py"]
+    environment:
+      - DATA_DIR=/data
+    volumes:
+      - ./server.py:/app/server.py:ro
+      - ./data:/data
+    networks:
+      - football
+
+networks:
+  football:
+    name: football-net
